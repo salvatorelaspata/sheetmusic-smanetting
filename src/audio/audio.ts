@@ -13,6 +13,11 @@ let started = false
 let synth: Tone.PolySynth | null = null
 let metroSynth: Tone.MembraneSynth | null = null
 let metroLoop: Tone.Loop | null = null
+let masterVolume = 0.8
+
+function applyVolume(): void {
+  Tone.getDestination().volume.value = masterVolume <= 0 ? -Infinity : Tone.gainToDb(masterVolume)
+}
 
 /** Inizializza l'audio (idempotente). Va chiamata da un handler di evento utente. */
 export async function ensureAudio(): Promise<void> {
@@ -22,16 +27,17 @@ export async function ensureAudio(): Promise<void> {
     synth = new Tone.PolySynth(Tone.Synth).toDestination()
   }
   started = true
+  applyVolume()
 }
 
 export function isAudioStarted(): boolean {
   return started
 }
 
-/** Volume globale 0..1 (0 = muto). */
+/** Volume globale 0..1 (0 = muto). Ricordato e applicato all'avvio dell'audio. */
 export function setMasterVolume(value: number): void {
-  const v = Math.min(1, Math.max(0, value))
-  Tone.getDestination().volume.value = v <= 0 ? -Infinity : Tone.gainToDb(v)
+  masterVolume = Math.min(1, Math.max(0, value))
+  if (started) applyVolume()
 }
 
 export async function playPitch(pitch: Pitch, seconds = 0.7): Promise<void> {
