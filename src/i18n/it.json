@@ -1,0 +1,59 @@
+{
+  "app": {
+    "name": "SManetting",
+    "tagline": "Impara a leggere gli spartiti"
+  },
+  "nav": {
+    "home": "Home",
+    "teoria": "Teoria",
+    "pratica": "Pratica",
+    "componi": "Componi",
+    "impostazioni": "Impostazioni",
+    "toggleTheme": "Cambia tema"
+  },
+  "home": {
+    "title": "Benvenuto in SManetting",
+    "subtitle": "Impara a leggere la musica, un passo alla volta.",
+    "progressTitle": "Progressi nella Teoria",
+    "progressEmpty": "Non hai ancora iniziato. Apri la prima lezione per cominciare.",
+    "statsTitle": "Statistiche della Pratica",
+    "statsEmpty": "Nessun esercizio svolto finora.",
+    "compositionsTitle": "Ultime composizioni",
+    "compositionsEmpty": "Nessuna composizione salvata.",
+    "ctaTheory": "Vai alla Teoria",
+    "ctaPractice": "Allenati",
+    "ctaCompose": "Nuova composizione"
+  },
+  "placeholder": {
+    "underConstruction": "Sezione in costruzione",
+    "plannedIn": "Pianificata nella {{phase}}",
+    "seeRoadmap": "I dettagli sono in ROADMAP.md."
+  },
+  "sections": {
+    "teoria": {
+      "title": "Teoria",
+      "subtitle": "Lezioni progressive con esempi sul pentagramma e mini-quiz."
+    },
+    "pratica": {
+      "title": "Pratica",
+      "subtitle": "Esercizi interattivi con punteggio e statistiche."
+    },
+    "componi": {
+      "title": "Componi",
+      "subtitle": "Un editor di spartiti semplice ma completo."
+    }
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "subtitle": "Le preferenze sono salvate sul tuo dispositivo.",
+    "language": "Lingua dell'interfaccia",
+    "italian": "Italiano",
+    "english": "Inglese",
+    "theme": "Tema",
+    "light": "Chiaro",
+    "dark": "Scuro",
+    "englishNotation": "Mostra anche la notazione anglosassone (C, D, E…)",
+    "englishNotationHint": "I nomi delle note resteranno in italiano (Do, Re, Mi…) con l'equivalente inglese accanto.",
+    "volume": "Volume"
+  }
+}

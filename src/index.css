@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas: 248 250 252; /* slate-50 */
+    --surface: 255 255 255; /* white */
+    --ink: 15 23 42; /* slate-900 */
+    --muted: 100 116 139; /* slate-500 */
+    --border: 226 232 240; /* slate-200 */
+    --brand: 79 70 229; /* indigo-600 */
+    --brand-fg: 255 255 255;
+    --accent: 13 148 136; /* teal-600 */
+    --success: 22 163 74; /* green-600 */
+    --danger: 220 38 38; /* red-600 */
+  }
+
+  .dark {
+    --canvas: 15 23 42; /* slate-900 */
+    --surface: 30 41 59; /* slate-800 */
+    --ink: 226 232 240; /* slate-200 */
+    --muted: 148 163 184; /* slate-400 */
+    --border: 51 65 85; /* slate-700 */
+    --brand: 129 140 248; /* indigo-400 */
+    --brand-fg: 15 23 42;
+    --accent: 45 212 191; /* teal-400 */
+    --success: 74 222 128; /* green-400 */
+    --danger: 248 113 113; /* red-400 */
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-canvas;
+  }
+}

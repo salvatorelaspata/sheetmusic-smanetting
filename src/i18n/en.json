@@ -1,0 +1,59 @@
+{
+  "app": {
+    "name": "SManetting",
+    "tagline": "Learn to read sheet music"
+  },
+  "nav": {
+    "home": "Home",
+    "teoria": "Theory",
+    "pratica": "Practice",
+    "componi": "Compose",
+    "impostazioni": "Settings",
+    "toggleTheme": "Toggle theme"
+  },
+  "home": {
+    "title": "Welcome to SManetting",
+    "subtitle": "Learn to read music, one step at a time.",
+    "progressTitle": "Theory progress",
+    "progressEmpty": "You haven't started yet. Open the first lesson to begin.",
+    "statsTitle": "Practice statistics",
+    "statsEmpty": "No exercises done yet.",
+    "compositionsTitle": "Recent compositions",
+    "compositionsEmpty": "No saved compositions.",
+    "ctaTheory": "Go to Theory",
+    "ctaPractice": "Practice",
+    "ctaCompose": "New composition"
+  },
+  "placeholder": {
+    "underConstruction": "Section under construction",
+    "plannedIn": "Planned in {{phase}}",
+    "seeRoadmap": "Details are in ROADMAP.md."
+  },
+  "sections": {
+    "teoria": {
+      "title": "Theory",
+      "subtitle": "Progressive lessons with staff examples and short quizzes."
+    },
+    "pratica": {
+      "title": "Practice",
+      "subtitle": "Interactive exercises with scoring and statistics."
+    },
+    "componi": {
+      "title": "Compose",
+      "subtitle": "A simple but complete score editor."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Your preferences are stored on your device.",
+    "language": "Interface language",
+    "italian": "Italian",
+    "english": "English",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "englishNotation": "Also show English note names (C, D, E…)",
+    "englishNotationHint": "Note names stay in Italian (Do, Re, Mi…) with the English equivalent next to them.",
+    "volume": "Volume"
+  }
+}
