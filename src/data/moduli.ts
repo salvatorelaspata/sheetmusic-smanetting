@@ -79,11 +79,18 @@ export function lessonById(id: string): LessonMeta | undefined {
   return ALL_LESSONS.find((l) => l.id === id)
 }
 
-/**
- * Indice di una lezione nel percorso globale (per la logica di sblocco
- * sequenziale: una lezione è sbloccata se è la prima o se la precedente è
- * stata completata).
- */
+/** Indice di una lezione nel percorso globale. */
 export function lessonOrder(id: string): number {
   return ALL_LESSONS.findIndex((l) => l.id === id)
+}
+
+/**
+ * Sblocco sequenziale: una lezione è disponibile se è la prima del percorso o se
+ * la lezione immediatamente precedente è stata completata.
+ */
+export function isLessonUnlocked(id: string, completed: Set<string> | string[]): boolean {
+  const set = completed instanceof Set ? completed : new Set(completed)
+  const order = lessonOrder(id)
+  if (order <= 0) return true
+  return set.has(ALL_LESSONS[order - 1].id)
 }

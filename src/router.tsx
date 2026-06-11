@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
-import Teoria from './pages/Teoria'
+import TeoriaHome from './pages/teoria/TeoriaHome'
+import Lezione from './pages/teoria/Lezione'
 import Pratica from './pages/Pratica'
 import Componi from './pages/Componi'
 import Impostazioni from './pages/Impostazioni'
@@ -13,7 +14,8 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'teoria', element: <Teoria /> },
+      { path: 'teoria', element: <TeoriaHome /> },
+      { path: 'teoria/:lessonId', element: <Lezione /> },
       { path: 'pratica', element: <Pratica /> },
       { path: 'componi', element: <Componi /> },
       { path: 'impostazioni', element: <Impostazioni /> },

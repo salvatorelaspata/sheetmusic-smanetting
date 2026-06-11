@@ -1,8 +1,8 @@
 import { Accidental, Dot, Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow'
-import type { ClefType, KeySignature, NoteElement, TimeSignature } from './model'
+import type { ClefType, KeySignature, NoteElement, Step, TimeSignature } from './model'
 import { vexDurationCode } from './durations'
 import { vexAccidentalCode, vexKey } from './pitch'
-import { vexKeySignatureName } from './theory'
+import { keySignatureAccidentals, vexKeySignatureName } from './theory'
 
 /**
  * Adapter che traduce un frammento del nostro modello in oggetti VexFlow e li
@@ -68,6 +68,13 @@ export function renderFragment(
 
   const ts = fragment.timeSignature ?? { beats: 4, beatType: 4 }
 
+  const keyAcc = new Map<Step, 'sharp' | 'flat'>()
+  if (fragment.keySignature) {
+    for (const a of keySignatureAccidentals(fragment.keySignature.fifths)) {
+      keyAcc.set(a.step, a.type)
+    }
+  }
+
   const notes: StaveNote[] = fragment.elements.map((el, i) => {
     const isRest = el.kind === 'rest' || el.pitches.length === 0
     const code = vexDurationCode(el.duration.base) + (isRest ? 'r' : '')
@@ -77,7 +84,13 @@ export function renderFragment(
     if (!isRest) {
       el.pitches.forEach((p, pi) => {
         const acc = vexAccidentalCode(p)
-        if (acc) note.addModifier(new Accidental(acc), pi)
+        if (!acc) return
+        // Non ridisegnare un'alterazione già presente nell'armatura.
+        const inKey = keyAcc.get(p.step)
+        const redundant =
+          (p.accidental === 'sharp' && inKey === 'sharp') ||
+          (p.accidental === 'flat' && inKey === 'flat')
+        if (!redundant) note.addModifier(new Accidental(acc), pi)
       })
     }
     for (let d = 0; d < el.duration.dots; d++) {

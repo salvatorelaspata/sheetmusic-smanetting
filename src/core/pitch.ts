@@ -86,10 +86,13 @@ export function stepFromItalian(name: string): Step | undefined {
   return entry
 }
 
-/** Chiave per VexFlow, es. "c/4", "f#/5", "eb/4" (l'alterazione naturale non va nella chiave). */
+/**
+ * Chiave per VexFlow, es. "c/4". La lettera determina la riga; l'alterazione è
+ * gestita separatamente come modifier (vexAccidentalCode), così l'armatura può
+ * sopprimere i diesis/bemolli ridondanti senza spostare la nota.
+ */
 export function vexKey(p: Pitch): string {
-  const sym = p.accidental && p.accidental !== 'natural' ? ACC_SYMBOL_ASCII[p.accidental] : ''
-  return `${p.step.toLowerCase()}${sym}/${p.octave}`
+  return `${p.step.toLowerCase()}/${p.octave}`
 }
 
 /** Codice dell'alterazione da disegnare come modifier VexFlow, o undefined se nessuna. */

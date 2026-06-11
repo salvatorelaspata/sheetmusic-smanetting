@@ -30,7 +30,7 @@ describe('pitch', () => {
   })
 
   it('chiave e alterazioni VexFlow', () => {
-    expect(vexKey({ step: 'E', octave: 4, accidental: 'flat' })).toBe('eb/4')
+    expect(vexKey({ step: 'E', octave: 4, accidental: 'flat' })).toBe('e/4')
     expect(vexKey({ step: 'C', octave: 4 })).toBe('c/4')
     expect(vexAccidentalCode({ step: 'C', octave: 4, accidental: 'sharp' })).toBe('#')
     expect(vexAccidentalCode({ step: 'C', octave: 4 })).toBeUndefined()
