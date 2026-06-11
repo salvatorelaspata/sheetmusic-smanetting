@@ -9,7 +9,7 @@ import ValoriPause from './pages/pratica/ValoriPause'
 import Ritmo from './pages/pratica/Ritmo'
 import Armature from './pages/pratica/Armature'
 import Dettato from './pages/pratica/Dettato'
-import Componi from './pages/Componi'
+import Componi from './pages/componi/ComponiPage'
 import Impostazioni from './pages/Impostazioni'
 import Sandbox from './pages/Sandbox'
 

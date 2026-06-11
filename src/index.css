@@ -43,3 +43,20 @@
     @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-canvas;
   }
 }
+
+/* Stampa: mostra solo l'area dello spartito (.print-area). */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

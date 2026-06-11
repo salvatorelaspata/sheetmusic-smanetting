@@ -105,6 +105,14 @@ export function stopPlayback(): void {
   transport.cancel()
 }
 
+export function pausePlayback(): void {
+  Tone.getTransport().pause()
+}
+
+export function resumePlayback(): void {
+  Tone.getTransport().start()
+}
+
 /** Avvia il metronomo. `onBeat` riceve l'indice del movimento nella battuta. */
 export async function startMetronome(
   bpm: number,

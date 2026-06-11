@@ -1,14 +1,12 @@
-import { Accidental, Dot, Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow'
-import type { ClefType, KeySignature, NoteElement, Step, TimeSignature } from './model'
-import { vexDurationCode } from './durations'
-import { vexAccidentalCode, vexKey } from './pitch'
-import { keySignatureAccidentals, vexKeySignatureName } from './theory'
+import { Formatter, Renderer, Stave, Voice } from 'vexflow'
+import type { ClefType, KeySignature, NoteElement, TimeSignature } from './model'
+import { vexKeySignatureName } from './theory'
+import { buildStaveNote, keyAccidentalMap } from './vexNotes'
 
 /**
- * Adapter che traduce un frammento del nostro modello in oggetti VexFlow e li
- * disegna in un contenitore. È l'UNICO punto del codice che importa VexFlow:
- * usato solo da <Staff>. Restituisce le bounding box delle note per gli overlay
- * cliccabili e il cursore (vedi REQUISITI.md §3.2).
+ * Renderer a rigo singolo per esempi ed esercizi. È, con editorRenderer, uno dei
+ * punti che importano VexFlow. Restituisce le bounding box delle note per gli
+ * overlay cliccabili e il cursore (vedi REQUISITI.md §3.2).
  */
 
 export interface StaffFragment {
@@ -19,7 +17,6 @@ export interface StaffFragment {
 }
 
 export interface NoteHit {
-  /** Indice dell'elemento nel frammento. */
   index: number
   x: number
   y: number
@@ -40,8 +37,6 @@ export interface RenderResult {
   hits: NoteHit[]
 }
 
-const REST_KEY: Record<ClefType, string> = { treble: 'b/4', bass: 'd/3' }
-
 export function renderFragment(
   container: HTMLDivElement,
   fragment: StaffFragment,
@@ -49,14 +44,13 @@ export function renderFragment(
 ): RenderResult {
   const width = Math.max(120, Math.floor(options.width))
   const height = options.height ?? 160
-  const staveY = 30
 
   container.innerHTML = ''
   const renderer = new Renderer(container, Renderer.Backends.SVG)
   renderer.resize(width, height)
   const context = renderer.getContext()
 
-  const stave = new Stave(8, staveY, width - 16)
+  const stave = new Stave(8, 30, width - 16)
   stave.addClef(fragment.clef)
   if (fragment.keySignature) {
     stave.addKeySignature(vexKeySignatureName(fragment.keySignature.fifths))
@@ -67,35 +61,10 @@ export function renderFragment(
   stave.setContext(context).draw()
 
   const ts = fragment.timeSignature ?? { beats: 4, beatType: 4 }
+  const keyAcc = keyAccidentalMap(fragment.keySignature?.fifths ?? 0)
 
-  const keyAcc = new Map<Step, 'sharp' | 'flat'>()
-  if (fragment.keySignature) {
-    for (const a of keySignatureAccidentals(fragment.keySignature.fifths)) {
-      keyAcc.set(a.step, a.type)
-    }
-  }
-
-  const notes: StaveNote[] = fragment.elements.map((el, i) => {
-    const isRest = el.kind === 'rest' || el.pitches.length === 0
-    const code = vexDurationCode(el.duration.base) + (isRest ? 'r' : '')
-    const keys = isRest ? [REST_KEY[fragment.clef]] : el.pitches.map(vexKey)
-    const note = new StaveNote({ keys, duration: code, clef: fragment.clef, autoStem: true })
-
-    if (!isRest) {
-      el.pitches.forEach((p, pi) => {
-        const acc = vexAccidentalCode(p)
-        if (!acc) return
-        // Non ridisegnare un'alterazione già presente nell'armatura.
-        const inKey = keyAcc.get(p.step)
-        const redundant =
-          (p.accidental === 'sharp' && inKey === 'sharp') ||
-          (p.accidental === 'flat' && inKey === 'flat')
-        if (!redundant) note.addModifier(new Accidental(acc), pi)
-      })
-    }
-    for (let d = 0; d < el.duration.dots; d++) {
-      Dot.buildAndAttach([note], { all: true })
-    }
+  const notes = fragment.elements.map((el, i) => {
+    const note = buildStaveNote(el, fragment.clef, keyAcc)
     if (options.highlightIndex === i) {
       const color = options.highlightColor ?? '#4338ca'
       note.setStyle({ fillStyle: color, strokeStyle: color })
