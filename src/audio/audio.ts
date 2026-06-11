@@ -135,6 +135,13 @@ export function stopMetronome(): void {
   Tone.getTransport().stop()
 }
 
+/** Riproduce un singolo "click" di metronomo (per gli esercizi ritmici). */
+export async function playClick(accent = false): Promise<void> {
+  await ensureAudio()
+  if (!metroSynth) metroSynth = new Tone.MembraneSynth().toDestination()
+  metroSynth.triggerAttackRelease(accent ? 'C3' : 'C2', '32n')
+}
+
 /** Tempo audio corrente in secondi (per misurare la precisione ritmica). */
 export function audioNow(): number {
   return Tone.now()

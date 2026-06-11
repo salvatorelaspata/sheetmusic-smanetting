@@ -57,6 +57,16 @@ export function frequencyOf(p: Pitch): number {
   return 440 * Math.pow(2, (midiOf(p) - 69) / 12)
 }
 
+/** Classe d'altezza (0..11), indipendente dall'ottava. Do=0, Do♯/Re♭=1, … */
+export function pitchClass(p: Pitch): number {
+  return ((midiOf(p) % 12) + 12) % 12
+}
+
+/** Classe d'altezza della nota naturale corrispondente al nome (Do=0, Re=2, …). */
+export function stepPitchClass(step: Step): number {
+  return SEMITONE[step]
+}
+
 /**
  * Valore diatonico monotòno con l'altezza ignorando le alterazioni:
  * usato per la posizione verticale sul pentagramma.

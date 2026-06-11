@@ -62,6 +62,67 @@
     "backToTheory": "Torna alle lezioni",
     "lessonNotFound": "Lezione non trovata."
   },
+  "pratica": {
+    "title": "Pratica",
+    "subtitle": "Allenati con esercizi interattivi. I tuoi progressi vengono salvati.",
+    "back": "Torna alla Pratica",
+    "progress": "{{done}} / {{total}}",
+    "answered": "{{n}} risposte",
+    "correctCount": "corrette",
+    "streak": "serie",
+    "summaryScore": "{{correct}} corrette su {{total}}",
+    "summaryStreak": "Serie migliore: {{streak}}",
+    "again": "Riprova",
+    "review": "Errori da rivedere",
+    "startExercise": "Inizia",
+    "bestStreakShort": "serie migliore {{n}}"
+  },
+  "exercises": {
+    "continue": "Continua",
+    "correct": "Giusto!",
+    "wrongIs": "Era {{note}}",
+    "riconosci": {
+      "title": "Riconosci la nota",
+      "desc": "Indica la nota mostrata sul pentagramma.",
+      "timed": "A tempo (60s)",
+      "usePiano": "Usa la tastiera",
+      "useNames": "Usa i nomi",
+      "pianoOnly": "Con le alterazioni si usa la tastiera."
+    },
+    "valori": {
+      "title": "Valori e pause",
+      "desc": "Riconosci la durata del simbolo mostrato.",
+      "askNote": "Che valore ha questa nota?",
+      "askRest": "Che valore ha questa pausa?",
+      "note": "Nota",
+      "rest": "Pausa"
+    },
+    "armature": {
+      "title": "Quiz sulle armature",
+      "desc": "Riconosci la tonalità maggiore dall'armatura di chiave.",
+      "ask": "Qual è la tonalità maggiore?"
+    },
+    "dettato": {
+      "title": "Dettato melodico",
+      "desc": "Ascolta la melodia e ricostruiscila.",
+      "listen": "Ascolta",
+      "count": "{{n}} / {{total}} note",
+      "undo": "Annulla",
+      "confirm": "Conferma",
+      "wrong": "Era: {{seq}}"
+    },
+    "ritmo": {
+      "title": "Allenamento ritmico",
+      "desc": "Riproduci la battuta a tempo con il metronomo.",
+      "instructions": "Ascolta la battuta, poi battila con TAP (o barra spaziatrice) dopo il conto alla rovescia.",
+      "listen": "Ascolta",
+      "play": "Suona tu",
+      "getReady": "Preparati…",
+      "now": "Suona!",
+      "tapHint": "Premi TAP o la barra spaziatrice a tempo.",
+      "hits": "{{hits}} colpi a tempo su {{total}}"
+    }
+  },
   "placeholder": {
     "underConstruction": "Sezione in costruzione",
     "plannedIn": "Pianificata nella {{phase}}",

@@ -62,6 +62,67 @@
     "backToTheory": "Back to lessons",
     "lessonNotFound": "Lesson not found."
   },
+  "pratica": {
+    "title": "Practice",
+    "subtitle": "Train with interactive exercises. Your progress is saved.",
+    "back": "Back to Practice",
+    "progress": "{{done}} / {{total}}",
+    "answered": "{{n}} answers",
+    "correctCount": "correct",
+    "streak": "streak",
+    "summaryScore": "{{correct}} correct out of {{total}}",
+    "summaryStreak": "Best streak: {{streak}}",
+    "again": "Try again",
+    "review": "Mistakes to review",
+    "startExercise": "Start",
+    "bestStreakShort": "best streak {{n}}"
+  },
+  "exercises": {
+    "continue": "Continue",
+    "correct": "Correct!",
+    "wrongIs": "It was {{note}}",
+    "riconosci": {
+      "title": "Name that note",
+      "desc": "Identify the note shown on the staff.",
+      "timed": "Timed (60s)",
+      "usePiano": "Use the keyboard",
+      "useNames": "Use note names",
+      "pianoOnly": "For accidentals, use the keyboard."
+    },
+    "valori": {
+      "title": "Values and rests",
+      "desc": "Recognize the value of the symbol shown.",
+      "askNote": "What value is this note?",
+      "askRest": "What value is this rest?",
+      "note": "Note",
+      "rest": "Rest"
+    },
+    "armature": {
+      "title": "Key signature quiz",
+      "desc": "Recognize the major key from the key signature.",
+      "ask": "Which major key is it?"
+    },
+    "dettato": {
+      "title": "Melodic dictation",
+      "desc": "Listen to the melody and rebuild it.",
+      "listen": "Listen",
+      "count": "{{n}} / {{total}} notes",
+      "undo": "Undo",
+      "confirm": "Confirm",
+      "wrong": "It was: {{seq}}"
+    },
+    "ritmo": {
+      "title": "Rhythm training",
+      "desc": "Reproduce the measure in time with the metronome.",
+      "instructions": "Listen to the measure, then tap it with TAP (or spacebar) after the count-in.",
+      "listen": "Listen",
+      "play": "Your turn",
+      "getReady": "Get ready…",
+      "now": "Go!",
+      "tapHint": "Press TAP or the spacebar in time.",
+      "hits": "{{hits}} hits in time out of {{total}}"
+    }
+  },
   "placeholder": {
     "underConstruction": "Section under construction",
     "plannedIn": "Planned in {{phase}}",
