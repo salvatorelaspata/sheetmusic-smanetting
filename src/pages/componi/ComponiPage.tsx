@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components/ui/Button'
@@ -7,27 +7,29 @@ import { toast } from '../../components/ui/toastStore'
 import { SongSettings } from './SongSettings'
 import { NotePalette } from './NotePalette'
 import { ScoreEditor } from './ScoreEditor'
+import { useScoreHistory } from './useScoreHistory'
 import { DEFAULT_TOOL, type Tool } from './tool'
 import type { ClefType, KeySignature, NoteElement, Score, TimeSignature } from '../../core/model'
 import { createScore } from '../../core/score'
+import { PALETTE_DURATIONS } from '../../core/durations'
 import {
   addMeasure,
-  appendElement,
+  allElementIds,
+  appendElements,
+  cloneElements,
   deleteElement,
+  deleteElements,
+  insertElement,
   removeMeasure,
   setClef,
   setKeySignature,
   setTempo,
   setTimeSignature,
   setTitle,
+  transposeElements,
 } from '../../core/scoreEdit'
 import { toMusicXML } from '../../core/musicxml'
-import {
-  pausePlayback,
-  playSequence,
-  resumePlayback,
-  stopPlayback,
-} from '../../audio/audio'
+import { pausePlayback, playSequence, resumePlayback, stopPlayback } from '../../audio/audio'
 import { useCompositions } from '../../state/compositionsStore'
 
 type PlayState = 'stopped' | 'playing' | 'paused'
@@ -44,7 +46,7 @@ export default function ComponiPage() {
   const saveComp = useCompositions((s) => s.save)
   const removeComp = useCompositions((s) => s.remove)
 
-  const [score, setScore] = useState<Score>(() => {
+  const [initialScore] = useState<Score>(() => {
     const id = searchParams.get('id')
     if (id) {
       const found = useCompositions.getState().get(id)
@@ -52,11 +54,15 @@ export default function ComponiPage() {
     }
     return createScore({ title: t('componi.untitled') })
   })
+  const history = useScoreHistory(initialScore)
+  const score = history.score
 
   const [tool, setTool] = useState<Tool>(DEFAULT_TOOL)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
   const [playState, setPlayState] = useState<PlayState>('stopped')
   const [playingIndex, setPlayingIndex] = useState<number | undefined>(undefined)
   const [openModal, setOpenModal] = useState(false)
+  const clipboard = useRef<NoteElement[]>([])
 
   const stopIfPlaying = () => {
     if (playState !== 'stopped') {
@@ -65,11 +71,70 @@ export default function ComponiPage() {
       setPlayingIndex(undefined)
     }
   }
-
   const edit = (next: Score) => {
     stopIfPlaying()
-    setScore(next)
+    history.set(next)
   }
+
+  const selectedElements = (): NoteElement[] =>
+    score.measures.flatMap((m) => (m.voices[0]?.elements ?? []).filter((e) => selected.has(e.id)))
+
+  // La selezione resta valida dopo modifiche/undo/redo.
+  useEffect(() => {
+    setSelected((prev) => {
+      if (prev.size === 0) return prev
+      const valid = allElementIds(score)
+      const next = new Set<string>()
+      let changed = false
+      prev.forEach((id) => (valid.has(id) ? next.add(id) : (changed = true)))
+      return changed ? next : prev
+    })
+  }, [score])
+
+  // Scorciatoie da tastiera.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName
+      if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return
+      const mod = e.ctrlKey || e.metaKey
+      const key = e.key.toLowerCase()
+
+      if (mod && key === 'z' && !e.shiftKey) return (e.preventDefault(), history.undo())
+      if ((mod && key === 'y') || (mod && e.shiftKey && key === 'z'))
+        return (e.preventDefault(), history.redo())
+      if (mod && key === 'c') return void (clipboard.current = cloneElements(selectedElements()))
+      if (mod && key === 'v') {
+        if (clipboard.current.length)
+          edit(appendElements(score, score.measures.length - 1, cloneElements(clipboard.current)))
+        return
+      }
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (selected.size) {
+          e.preventDefault()
+          edit(deleteElements(score, selected))
+          setSelected(new Set())
+        }
+        return
+      }
+      if (e.key === 'Escape') return setSelected(new Set())
+      if (e.key === 'ArrowUp' && selected.size)
+        return (e.preventDefault(), edit(transposeElements(score, selected, 1)))
+      if (e.key === 'ArrowDown' && selected.size)
+        return (e.preventDefault(), edit(transposeElements(score, selected, -1)))
+
+      const n = Number(e.key)
+      if (Number.isInteger(n) && n >= 1 && n <= PALETTE_DURATIONS.length) {
+        setTool((tl) => ({
+          ...tl,
+          duration: PALETTE_DURATIONS[n - 1].base,
+          mode: tl.mode === 'select' || tl.mode === 'erase' ? 'note' : tl.mode,
+        }))
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [score, selected])
 
   // --- Playback ---
   const handlePlay = async () => {
@@ -90,10 +155,6 @@ export default function ComponiPage() {
       },
     })
   }
-  const handlePause = () => {
-    pausePlayback()
-    setPlayState('paused')
-  }
   const handleStop = () => {
     stopPlayback()
     setPlayState('stopped')
@@ -106,8 +167,9 @@ export default function ComponiPage() {
     toast.success(t('componi.saved'))
   }
   const handleExport = () => {
-    const xml = toMusicXML(score)
-    const blob = new Blob([xml], { type: 'application/vnd.recordare.musicxml+xml' })
+    const blob = new Blob([toMusicXML(score)], {
+      type: 'application/vnd.recordare.musicxml+xml',
+    })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
@@ -115,10 +177,15 @@ export default function ComponiPage() {
     a.click()
     URL.revokeObjectURL(url)
   }
-  const handleNew = () => edit(createScore({ title: t('componi.untitled') }))
+  const handleNew = () => {
+    stopIfPlaying()
+    setSelected(new Set())
+    history.reset(createScore({ title: t('componi.untitled') }))
+  }
   const handleLoad = (s: Score) => {
     stopIfPlaying()
-    setScore(s)
+    setSelected(new Set())
+    history.reset(s)
     setOpenModal(false)
   }
 
@@ -129,16 +196,31 @@ export default function ComponiPage() {
       month: 'short',
     })
 
-  const onInsert = (measureIndex: number, element: NoteElement) =>
-    edit(appendElement(score, measureIndex, element))
-  const onErase = (measureIndex: number, elementId: string) =>
-    edit(deleteElement(score, measureIndex, elementId))
-
   return (
     <div className="space-y-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold tracking-tight">{t('componi.title')}</h1>
         <div className="flex flex-wrap gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={history.undo}
+            disabled={!history.canUndo}
+            title={t('componi.undo')}
+            aria-label={t('componi.undo')}
+          >
+            ↶
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={history.redo}
+            disabled={!history.canRedo}
+            title={t('componi.redo')}
+            aria-label={t('componi.redo')}
+          >
+            ↷
+          </Button>
           <Button variant="secondary" size="sm" onClick={handleNew}>
             {t('componi.new')}
           </Button>
@@ -168,10 +250,9 @@ export default function ComponiPage() {
 
       <NotePalette tool={tool} onChange={setTool} />
 
-      {/* Controlli playback + battute */}
       <div className="flex flex-wrap items-center gap-2">
         {playState === 'playing' ? (
-          <Button size="sm" onClick={handlePause}>
+          <Button size="sm" onClick={() => (pausePlayback(), setPlayState('paused'))}>
             ⏸ {t('componi.pause')}
           </Button>
         ) : (
@@ -194,12 +275,14 @@ export default function ComponiPage() {
         >
           − {t('componi.removeMeasure')}
         </Button>
+        {selected.size > 0 && (
+          <span className="text-sm text-brand">{t('componi.selectedCount', { n: selected.size })}</span>
+        )}
         <span className="ml-auto text-sm text-muted">
           {t('componi.measures', { n: score.measures.length })}
         </span>
       </div>
 
-      {/* Legenda validazione */}
       <div className="flex flex-wrap gap-4 text-xs text-muted">
         <span className="inline-flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-success" /> {t('componi.legendComplete')}
@@ -212,16 +295,29 @@ export default function ComponiPage() {
         </span>
       </div>
 
-      <p className="text-sm text-muted">{t('componi.hint')}</p>
+      <p className="text-sm text-muted">
+        {tool.mode === 'select' ? t('componi.hintSelect') : t('componi.hint')}
+      </p>
 
       <div className="print-area">
         <h2 className="mb-2 hidden text-center text-lg font-semibold print:block">{score.title}</h2>
         <ScoreEditor
           score={score}
           tool={tool}
+          selectedIds={selected}
           highlightGlobalIndex={playingIndex}
-          onInsert={onInsert}
-          onErase={onErase}
+          onInsert={(mi, pos, el) => edit(insertElement(score, mi, pos, el))}
+          onErase={(mi, id) => edit(deleteElement(score, mi, id))}
+          onSelect={(id, additive) =>
+            setSelected((prev) => {
+              if (!additive) return new Set([id])
+              const next = new Set(prev)
+              next.has(id) ? next.delete(id) : next.add(id)
+              return next
+            })
+          }
+          onClearSelection={() => setSelected(new Set())}
+          onTranspose={(delta) => edit(transposeElements(score, selected, delta))}
         />
       </div>
 

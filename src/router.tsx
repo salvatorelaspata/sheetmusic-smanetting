@@ -1,17 +1,20 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
-import Home from './pages/Home'
-import TeoriaHome from './pages/teoria/TeoriaHome'
-import Lezione from './pages/teoria/Lezione'
-import PraticaHome from './pages/pratica/PraticaHome'
-import RiconosciNota from './pages/pratica/RiconosciNota'
-import ValoriPause from './pages/pratica/ValoriPause'
-import Ritmo from './pages/pratica/Ritmo'
-import Armature from './pages/pratica/Armature'
-import Dettato from './pages/pratica/Dettato'
-import Componi from './pages/componi/ComponiPage'
-import Impostazioni from './pages/Impostazioni'
-import Sandbox from './pages/Sandbox'
+
+// Le pagine sono caricate on-demand (code-splitting): le rotte musicali portano
+// con sé VexFlow/Tone, che così non pesano sul caricamento iniziale.
+const Home = lazy(() => import('./pages/Home'))
+const TeoriaHome = lazy(() => import('./pages/teoria/TeoriaHome'))
+const Lezione = lazy(() => import('./pages/teoria/Lezione'))
+const PraticaHome = lazy(() => import('./pages/pratica/PraticaHome'))
+const RiconosciNota = lazy(() => import('./pages/pratica/RiconosciNota'))
+const ValoriPause = lazy(() => import('./pages/pratica/ValoriPause'))
+const Ritmo = lazy(() => import('./pages/pratica/Ritmo'))
+const Armature = lazy(() => import('./pages/pratica/Armature'))
+const Dettato = lazy(() => import('./pages/pratica/Dettato'))
+const Componi = lazy(() => import('./pages/componi/ComponiPage'))
+const Impostazioni = lazy(() => import('./pages/Impostazioni'))
 
 export const router = createBrowserRouter([
   {
@@ -29,8 +32,7 @@ export const router = createBrowserRouter([
       { path: 'pratica/dettato', element: <Dettato /> },
       { path: 'componi', element: <Componi /> },
       { path: 'impostazioni', element: <Impostazioni /> },
-      // Pagina di prova della Fase 1 (rimossa in Fase 7).
-      { path: 'sandbox', element: <Sandbox /> },
     ],
   },
-])
+  // basename = base di Vite (es. "/sheetmusic-smanetting" su GitHub Pages, "/" altrove).
+], { basename: import.meta.env.BASE_URL.replace(/\/$/, '') || '/' })

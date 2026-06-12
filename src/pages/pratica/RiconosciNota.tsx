@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Staff } from '../../components/music/Staff'
 import { PianoKeyboard } from '../../components/music/PianoKeyboard'
@@ -94,7 +94,7 @@ export default function RiconosciNota() {
   }
 
   // advance deve usare l'ultima closure (pitch/answer correnti) anche dal setTimeout.
-  const advanceRef = useMemo(() => ({ current: advance }), [])
+  const advanceRef = useRef(advance)
   advanceRef.current = advance
 
   // Invio per continuare (modalità normale).

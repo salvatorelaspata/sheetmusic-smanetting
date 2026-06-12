@@ -2,7 +2,7 @@ import type { Accidental, DurationBase } from '../../core/model'
 
 /** Stato dello strumento attivo nella palette dell'editor. */
 export interface Tool {
-  mode: 'note' | 'rest' | 'erase'
+  mode: 'select' | 'note' | 'rest' | 'erase'
   duration: DurationBase
   dotted: boolean
   accidental: Accidental | null

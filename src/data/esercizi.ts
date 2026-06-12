@@ -1,53 +1,23 @@
 /**
- * Catalogo degli esercizi di Pratica (metadati). I livelli e la logica di
- * ciascun esercizio verranno definiti nella Fase 4.
+ * Catalogo degli esercizi di Pratica (metadati). I titoli/descrizioni mostrati
+ * usano le chiavi i18n (`exercises.<i18nKey>.*`), così sono bilingui come le
+ * pagine degli esercizi.
  */
 
 export interface ExerciseMeta {
   id: string
-  title: string
-  titleEn: string
-  description: string
-  /** Rotta dell'esercizio (attiva dalla Fase 4). */
+  /** Chiave i18n breve: exercises.<i18nKey>.title / .desc */
+  i18nKey: string
+  /** Rotta dell'esercizio. */
   path: string
 }
 
 export const EXERCISES: ExerciseMeta[] = [
-  {
-    id: 'riconosci-nota',
-    title: 'Riconosci la nota',
-    titleEn: 'Name that note',
-    description: 'Una nota appare sul pentagramma: indica il nome o premi il tasto giusto.',
-    path: '/pratica/riconosci-nota',
-  },
-  {
-    id: 'valori-pause',
-    title: 'Valori e pause',
-    titleEn: 'Values and rests',
-    description: 'Associa ogni simbolo alla sua durata.',
-    path: '/pratica/valori-pause',
-  },
-  {
-    id: 'ritmo',
-    title: 'Allenamento ritmico',
-    titleEn: 'Rhythm training',
-    description: 'Riproduci una battuta a tempo con il metronomo.',
-    path: '/pratica/ritmo',
-  },
-  {
-    id: 'armature',
-    title: 'Quiz sulle armature',
-    titleEn: 'Key signature quiz',
-    description: 'Riconosci la tonalità maggiore dall’armatura di chiave.',
-    path: '/pratica/armature',
-  },
-  {
-    id: 'dettato',
-    title: 'Dettato melodico',
-    titleEn: 'Melodic dictation',
-    description: 'Ascolta 3–4 note e selezionale sul pentagramma.',
-    path: '/pratica/dettato',
-  },
+  { id: 'riconosci-nota', i18nKey: 'riconosci', path: '/pratica/riconosci-nota' },
+  { id: 'valori-pause', i18nKey: 'valori', path: '/pratica/valori-pause' },
+  { id: 'ritmo', i18nKey: 'ritmo', path: '/pratica/ritmo' },
+  { id: 'armature', i18nKey: 'armature', path: '/pratica/armature' },
+  { id: 'dettato', i18nKey: 'dettato', path: '/pratica/dettato' },
 ]
 
 export function exerciseById(id: string): ExerciseMeta | undefined {

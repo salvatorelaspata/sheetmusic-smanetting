@@ -155,7 +155,15 @@
     "tempo": "BPM",
     "dot": "Dot",
     "rest": "Rest",
-    "erase": "Eraser"
+    "erase": "Eraser",
+    "select": "Select",
+    "undo": "Undo",
+    "redo": "Redo",
+    "selectedCount": "{{n}} selected",
+    "hintSelect": "Click a note to select it (Shift for multiple), drag it up/down to change its pitch. Arrows ↑↓ to move, Del to delete, Ctrl+Z/Y for undo/redo."
+  },
+  "common": {
+    "loading": "Loading…"
   },
   "placeholder": {
     "underConstruction": "Section under construction",

@@ -77,7 +77,13 @@ export function Staff({
       ref={wrapRef}
       className={`relative w-full overflow-hidden rounded-lg border border-border bg-white ${className ?? ''}`}
     >
-      <div ref={drawRef} className="[&_svg]:block" style={{ minHeight: height }} />
+      <div
+        ref={drawRef}
+        role="img"
+        aria-label="Notazione musicale"
+        className="[&_svg]:block"
+        style={{ minHeight: height }}
+      />
       {onNoteClick &&
         hits.map((hit) => (
           <button

@@ -24,10 +24,10 @@ export default function PraticaHome() {
           return (
             <Card key={ex.id}>
               <div className="flex items-start justify-between gap-3">
-                <h2 className="text-lg font-semibold">{ex.title}</h2>
+                <h2 className="text-lg font-semibold">{t(`exercises.${ex.i18nKey}.title`)}</h2>
                 {accuracy !== null && <Badge tone="brand">{accuracy}%</Badge>}
               </div>
-              <p className="mt-1 text-sm text-muted">{ex.description}</p>
+              <p className="mt-1 text-sm text-muted">{t(`exercises.${ex.i18nKey}.desc`)}</p>
               <div className="mt-4 flex items-center gap-3">
                 <Link to={ex.path} className={buttonClasses('primary', 'sm')}>
                   {t('pratica.startExercise')}

@@ -155,7 +155,15 @@
     "tempo": "BPM",
     "dot": "Punto di valore",
     "rest": "Pausa",
-    "erase": "Gomma"
+    "erase": "Gomma",
+    "select": "Seleziona",
+    "undo": "Annulla",
+    "redo": "Ripeti",
+    "selectedCount": "{{n}} selezionate",
+    "hintSelect": "Clicca una nota per selezionarla (Shift per più note), trascinala in alto/basso per cambiarne l'altezza. Frecce ↑↓ per spostare, Canc per eliminare, Ctrl+Z/Y per annulla/ripeti."
+  },
+  "common": {
+    "loading": "Caricamento…"
   },
   "placeholder": {
     "underConstruction": "Sezione in costruzione",

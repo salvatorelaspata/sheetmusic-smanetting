@@ -52,7 +52,13 @@ export interface EditorRenderResult {
 export function renderScore(
   container: HTMLDivElement,
   score: Score,
-  opts: { width: number; highlightGlobalIndex?: number; highlightColor?: string },
+  opts: {
+    width: number
+    highlightGlobalIndex?: number
+    highlightColor?: string
+    selectedIds?: Set<string>
+    selectionColor?: string
+  },
 ): EditorRenderResult {
   const width = Math.max(2 * MARGIN_X + MIN_MEASURE_W, Math.floor(opts.width))
   const perRow = Math.min(measuresPerRow(width), Math.max(1, score.measures.length))
@@ -92,7 +98,10 @@ export function renderScore(
     const elements = measure.voices[0]?.elements ?? []
     const staveNotes = elements.map((el, ei) => {
       const note = buildStaveNote(el, score.clef, keyAcc)
-      if (opts.highlightGlobalIndex === globalIndex + ei) {
+      if (opts.selectedIds?.has(el.id)) {
+        const color = opts.selectionColor ?? '#2563eb'
+        note.setStyle({ fillStyle: color, strokeStyle: color })
+      } else if (opts.highlightGlobalIndex === globalIndex + ei) {
         const color = opts.highlightColor ?? '#4338ca'
         note.setStyle({ fillStyle: color, strokeStyle: color })
       }

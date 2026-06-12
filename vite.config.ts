@@ -22,8 +22,8 @@ export default defineConfig({
         theme_color: '#4f46e5',
         background_color: '#ffffff',
         display: 'standalone',
-        start_url: '/',
-        scope: '/',
+        start_url: '.',
+        scope: '.',
         icons: [
           { src: 'icons/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
           {
@@ -34,8 +34,24 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+        navigateFallback: 'index.html',
+        maximumFileSizeToCacheInBytes: 3145728,
+      },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // VexFlow e Tone.js in chunk separati: caricati solo dalle rotte musicali.
+        manualChunks: {
+          vexflow: ['vexflow'],
+          tone: ['tone'],
+        },
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

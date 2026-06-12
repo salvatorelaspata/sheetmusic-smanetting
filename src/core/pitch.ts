@@ -75,6 +75,13 @@ export function diatonicValue(p: Pitch): number {
   return p.octave * 7 + stepIndex(p.step)
 }
 
+/** Inverso di diatonicValue: ricostruisce l'altezza (con eventuale alterazione). */
+export function pitchFromDiatonic(dv: number, accidental?: Accidental): Pitch {
+  const clamped = Math.max(0, Math.min(74, Math.round(dv)))
+  const pitch: Pitch = { step: STEPS[clamped % 7], octave: Math.floor(clamped / 7) }
+  return accidental ? { ...pitch, accidental } : pitch
+}
+
 /** Nome visualizzato della nota (italiano, con eventuale equivalente inglese). */
 export function noteName(
   p: Pitch,

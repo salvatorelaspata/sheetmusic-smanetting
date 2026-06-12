@@ -74,13 +74,24 @@ export function NotePalette({ tool, onChange }: { tool: Tool; onChange: (t: Tool
 
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-surface p-3">
+      <PBtn title={t('componi.select')} active={tool.mode === 'select'} onClick={() => set({ mode: 'select' })}>
+        ↖
+      </PBtn>
+
+      <span className="mx-1 h-8 w-px bg-border" />
+
       <div className="flex items-center gap-1">
         {PALETTE_DURATIONS.map((d) => (
           <PBtn
             key={d.base}
             title={d.it}
-            active={tool.duration === d.base && tool.mode !== 'erase'}
-            onClick={() => set({ duration: d.base, mode: tool.mode === 'erase' ? 'note' : tool.mode })}
+            active={tool.duration === d.base && tool.mode !== 'erase' && tool.mode !== 'select'}
+            onClick={() =>
+              set({
+                duration: d.base,
+                mode: tool.mode === 'erase' || tool.mode === 'select' ? 'note' : tool.mode,
+              })
+            }
           >
             <DurationGlyph base={d.base} />
           </PBtn>
