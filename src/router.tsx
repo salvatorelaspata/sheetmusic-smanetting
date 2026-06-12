@@ -13,6 +13,8 @@ const ValoriPause = lazy(() => import('./pages/pratica/ValoriPause'))
 const Ritmo = lazy(() => import('./pages/pratica/Ritmo'))
 const Armature = lazy(() => import('./pages/pratica/Armature'))
 const Dettato = lazy(() => import('./pages/pratica/Dettato'))
+const Intervalli = lazy(() => import('./pages/pratica/Intervalli'))
+const Accordi = lazy(() => import('./pages/pratica/Accordi'))
 const Componi = lazy(() => import('./pages/componi/ComponiPage'))
 const Impostazioni = lazy(() => import('./pages/Impostazioni'))
 
@@ -30,6 +32,8 @@ export const router = createBrowserRouter([
       { path: 'pratica/ritmo', element: <Ritmo /> },
       { path: 'pratica/armature', element: <Armature /> },
       { path: 'pratica/dettato', element: <Dettato /> },
+      { path: 'pratica/intervalli', element: <Intervalli /> },
+      { path: 'pratica/accordi', element: <Accordi /> },
       { path: 'componi', element: <Componi /> },
       { path: 'impostazioni', element: <Impostazioni /> },
     ],

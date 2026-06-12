@@ -67,6 +67,31 @@ export function stepPitchClass(step: Step): number {
   return SEMITONE[step]
 }
 
+const MIDI_SPELL: { step: Step; accidental?: Accidental }[] = [
+  { step: 'C' },
+  { step: 'C', accidental: 'sharp' },
+  { step: 'D' },
+  { step: 'D', accidental: 'sharp' },
+  { step: 'E' },
+  { step: 'F' },
+  { step: 'F', accidental: 'sharp' },
+  { step: 'G' },
+  { step: 'G', accidental: 'sharp' },
+  { step: 'A' },
+  { step: 'A', accidental: 'sharp' },
+  { step: 'B' },
+]
+
+/** Pitch da un numero MIDI (spelling con diesis per i tasti neri). */
+export function pitchFromMidi(midi: number): Pitch {
+  const pc = ((midi % 12) + 12) % 12
+  const octave = Math.floor(midi / 12) - 1
+  const spell = MIDI_SPELL[pc]
+  return spell.accidental
+    ? { step: spell.step, octave, accidental: spell.accidental }
+    : { step: spell.step, octave }
+}
+
 /**
  * Valore diatonico monotòno con l'altezza ignorando le alterazioni:
  * usato per la posizione verticale sul pentagramma.

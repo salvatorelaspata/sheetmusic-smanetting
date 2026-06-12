@@ -121,6 +121,22 @@
       "now": "Suona!",
       "tapHint": "Premi TAP o la barra spaziatrice a tempo.",
       "hits": "{{hits}} colpi a tempo su {{total}}"
+    },
+    "intervalli": {
+      "title": "Riconoscimento intervalli",
+      "desc": "Ascolta (o leggi) due note e indica l'intervallo.",
+      "listen": "Ascolta",
+      "ask": "Che intervallo è?"
+    },
+    "accordi": {
+      "title": "Riconoscimento accordi",
+      "desc": "Ascolta una triade e riconoscine il tipo.",
+      "listen": "Ascolta l'accordo",
+      "ask": "Che tipo di accordo è?",
+      "maggiore": "Maggiore",
+      "minore": "Minore",
+      "diminuita": "Diminuita",
+      "aumentata": "Aumentata"
     }
   },
   "componi": {

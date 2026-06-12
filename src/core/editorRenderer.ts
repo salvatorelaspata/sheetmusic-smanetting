@@ -1,7 +1,7 @@
 import { Formatter, Renderer, Stave, Voice } from 'vexflow'
 import type { Score } from './model'
 import { vexKeySignatureName } from './theory'
-import { buildStaveNote, keyAccidentalMap } from './vexNotes'
+import { buildStaveNote, decorateSpans, keyAccidentalMap } from './vexNotes'
 import { measureStatus, type MeasureStatus } from './validation'
 import {
   MARGIN_TOP,
@@ -118,6 +118,7 @@ export function renderScore(
       const pad = col === 0 ? 72 : 26
       new Formatter().joinVoices([voice]).format([voice], Math.max(50, measureW - pad))
       voice.draw(context, stave)
+      decorateSpans(context, elements, staveNotes)
     }
 
     elements.forEach((el, ei) => {

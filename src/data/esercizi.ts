@@ -18,6 +18,8 @@ export const EXERCISES: ExerciseMeta[] = [
   { id: 'ritmo', i18nKey: 'ritmo', path: '/pratica/ritmo' },
   { id: 'armature', i18nKey: 'armature', path: '/pratica/armature' },
   { id: 'dettato', i18nKey: 'dettato', path: '/pratica/dettato' },
+  { id: 'intervalli', i18nKey: 'intervalli', path: '/pratica/intervalli' },
+  { id: 'accordi', i18nKey: 'accordi', path: '/pratica/accordi' },
 ]
 
 export function exerciseById(id: string): ExerciseMeta | undefined {

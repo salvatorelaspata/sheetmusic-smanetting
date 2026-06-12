@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../ui/Button'
 import { StaffExampleView } from '../music/StaffExampleView'
-import type { QuizQuestion } from '../../data/lezioni'
+import { loc, type QuizQuestion } from '../../data/lezioni'
 
 export interface QuizResult {
   correct: number
@@ -25,7 +25,7 @@ const OPTION_CLASSES: Record<OptionState, string> = {
 }
 
 export function QuizRunner({ questions, onComplete }: QuizRunnerProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
@@ -82,7 +82,7 @@ export function QuizRunner({ questions, onComplete }: QuizRunnerProps) {
       <p className="text-sm text-muted">
         {t('teoria.question', { n: index + 1, total: questions.length })}
       </p>
-      <h3 className="text-lg font-semibold">{question.prompt}</h3>
+      <h3 className="text-lg font-semibold">{loc(question.prompt, i18n.language)}</h3>
 
       {question.staff && <StaffExampleView example={question.staff} height={140} />}
 
@@ -98,7 +98,7 @@ export function QuizRunner({ questions, onComplete }: QuizRunnerProps) {
             <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-canvas text-xs text-muted">
               {i + 1}
             </span>
-            {opt}
+            {loc(opt, i18n.language)}
           </button>
         ))}
       </div>
@@ -110,7 +110,9 @@ export function QuizRunner({ questions, onComplete }: QuizRunnerProps) {
           >
             {selected === question.correctIndex ? t('teoria.correct') : t('teoria.wrong')}
           </p>
-          {question.explanation && <p className="text-sm text-muted">{question.explanation}</p>}
+          {question.explanation && (
+            <p className="text-sm text-muted">{loc(question.explanation, i18n.language)}</p>
+          )}
           <Button onClick={advance}>{isLast ? t('teoria.seeResult') : t('teoria.next')}</Button>
         </div>
       )}

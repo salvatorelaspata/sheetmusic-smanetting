@@ -6,28 +6,37 @@ import { Card } from '../../components/ui/Card'
 import { buttonClasses } from '../../components/ui/styles'
 import { StaffExampleView } from '../../components/music/StaffExampleView'
 import { QuizRunner, type QuizResult } from '../../components/quiz/QuizRunner'
-import { getLesson, type ContentBlock } from '../../data/lezioni'
-import { ALL_LESSONS, isLessonUnlocked, lessonById, lessonOrder, MODULES } from '../../data/moduli'
+import { getLesson, loc, type ContentBlock } from '../../data/lezioni'
+import {
+  ALL_LESSONS,
+  isLessonUnlocked,
+  lessonById,
+  lessonOrder,
+  lessonTitle,
+  MODULES,
+} from '../../data/moduli'
 import { useProgress } from '../../state/progressStore'
 import { toast } from '../../components/ui/toastStore'
 
 function Block({ block }: { block: ContentBlock }) {
+  const { i18n } = useTranslation()
+  const lang = i18n.language
   switch (block.kind) {
     case 'heading':
-      return <h2 className="text-xl font-semibold tracking-tight">{block.text}</h2>
+      return <h2 className="text-xl font-semibold tracking-tight">{loc(block.text, lang)}</h2>
     case 'text':
-      return <p className="leading-relaxed text-ink/90">{block.text}</p>
+      return <p className="leading-relaxed text-ink/90">{loc(block.text, lang)}</p>
     case 'callout':
       return (
         <div className="rounded-lg border-l-4 border-brand bg-brand/5 px-4 py-3 text-sm">
-          {block.text}
+          {loc(block.text, lang)}
         </div>
       )
     case 'list':
       return (
         <ul className="list-disc space-y-1 pl-5 text-ink/90">
           {block.items.map((it, i) => (
-            <li key={i}>{it}</li>
+            <li key={i}>{loc(it, lang)}</li>
           ))}
         </ul>
       )
@@ -39,7 +48,7 @@ function Block({ block }: { block: ContentBlock }) {
 }
 
 export default function Lezione() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { lessonId = '' } = useParams()
   const lessons = useProgress((s) => s.lessons)
   const recordQuiz = useProgress((s) => s.recordQuiz)
@@ -107,7 +116,7 @@ export default function Lezione() {
         <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted">
           {t('teoria.module')} {module?.index}
         </p>
-        <h1 className="text-2xl font-bold tracking-tight">{meta.title}</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{lessonTitle(meta, i18n.language)}</h1>
       </header>
 
       {phase === 'reading' && (

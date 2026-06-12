@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Card } from '../components/ui/Card'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { buttonClasses } from '../components/ui/styles'
-import { ALL_LESSONS } from '../data/moduli'
+import { ALL_LESSONS, lessonTitle } from '../data/moduli'
 import { useProgress } from '../state/progressStore'
 import { useStats } from '../state/statsStore'
 import { useCompositions } from '../state/compositionsStore'
@@ -47,7 +47,9 @@ export default function Home() {
               {t('home.lessonsProgress', { done: completedCount, total: totalLessons })}
             </p>
             {nextLesson ? (
-              <p className="truncate text-sm">{t('home.next', { title: nextLesson.title })}</p>
+              <p className="truncate text-sm">
+                {t('home.next', { title: lessonTitle(nextLesson, i18n.language) })}
+              </p>
             ) : (
               <p className="text-sm font-medium text-success">{t('home.allDone')}</p>
             )}

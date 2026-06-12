@@ -1,7 +1,7 @@
 import { Formatter, Renderer, Stave, Voice } from 'vexflow'
 import type { ClefType, KeySignature, NoteElement, TimeSignature } from './model'
 import { vexKeySignatureName } from './theory'
-import { buildStaveNote, keyAccidentalMap } from './vexNotes'
+import { buildStaveNote, decorateSpans, keyAccidentalMap } from './vexNotes'
 
 /**
  * Renderer a rigo singolo per esempi ed esercizi. È, con editorRenderer, uno dei
@@ -78,6 +78,7 @@ export function renderFragment(
     voice.addTickables(notes)
     new Formatter().joinVoices([voice]).format([voice], Math.max(60, width - 90))
     voice.draw(context, stave)
+    decorateSpans(context, fragment.elements, notes)
   }
 
   const hits: NoteHit[] = []

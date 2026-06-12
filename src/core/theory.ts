@@ -161,6 +161,12 @@ const INTERVAL_EN: Record<string, string> = {
   '8:12': 'Octave',
 }
 
+/** Intervalli con nome IT/EN (per le opzioni bilingui degli esercizi). */
+export const SIMPLE_INTERVALS: { it: string; en: string }[] = Object.keys(INTERVAL_IT).map((k) => ({
+  it: INTERVAL_IT[k],
+  en: INTERVAL_EN[k],
+}))
+
 export interface IntervalInfo {
   /** Numero dell'intervallo (1 = unisono, 8 = ottava). */
   number: number

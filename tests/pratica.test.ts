@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { pitchClass, stepPitchClass } from '../src/core/pitch'
+import { midiOf, pitchClass, pitchFromMidi, stepPitchClass } from '../src/core/pitch'
+import { SIMPLE_INTERVALS } from '../src/core/theory'
 import { randomInt, sample } from '../src/core/random'
 import { RICONOSCI_LEVELS } from '../src/data/riconosci'
 
@@ -40,5 +41,16 @@ describe('pratica — livelli Riconosci la nota', () => {
     const alt = RICONOSCI_LEVELS.find((l) => l.id === 'alterazioni')
     expect(alt).toBeDefined()
     expect(alt!.pool.every((p) => !!p.accidental)).toBe(true)
+  })
+})
+
+describe('pratica — ear training', () => {
+  it('pitchFromMidi è coerente con midiOf (per gli accordi)', () => {
+    for (let m = 48; m <= 84; m++) expect(midiOf(pitchFromMidi(m))).toBe(m)
+  })
+
+  it('SIMPLE_INTERVALS ha nomi IT/EN', () => {
+    expect(SIMPLE_INTERVALS.length).toBeGreaterThan(5)
+    expect(SIMPLE_INTERVALS.every((s) => !!s.it && !!s.en)).toBe(true)
   })
 })

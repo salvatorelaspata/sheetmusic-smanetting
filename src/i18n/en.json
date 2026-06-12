@@ -121,6 +121,22 @@
       "now": "Go!",
       "tapHint": "Press TAP or the spacebar in time.",
       "hits": "{{hits}} hits in time out of {{total}}"
+    },
+    "intervalli": {
+      "title": "Interval recognition",
+      "desc": "Listen to (or read) two notes and name the interval.",
+      "listen": "Listen",
+      "ask": "Which interval is it?"
+    },
+    "accordi": {
+      "title": "Chord recognition",
+      "desc": "Listen to a triad and identify its type.",
+      "listen": "Play the chord",
+      "ask": "What type of chord is it?",
+      "maggiore": "Major",
+      "minore": "Minor",
+      "diminuita": "Diminished",
+      "aumentata": "Augmented"
     }
   },
   "componi": {

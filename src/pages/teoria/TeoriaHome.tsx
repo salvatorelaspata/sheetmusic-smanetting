@@ -4,11 +4,17 @@ import { Card } from '../../components/ui/Card'
 import { Badge } from '../../components/ui/Badge'
 import { ProgressBar } from '../../components/ui/ProgressBar'
 import { buttonClasses } from '../../components/ui/styles'
-import { ALL_LESSONS, isLessonUnlocked, MODULES } from '../../data/moduli'
+import {
+  ALL_LESSONS,
+  isLessonUnlocked,
+  moduleSummary,
+  moduleTitle,
+  MODULES,
+} from '../../data/moduli'
 import { useProgress } from '../../state/progressStore'
 
 export default function TeoriaHome() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const lessons = useProgress((s) => s.lessons)
 
   const completedIds = new Set(
@@ -52,8 +58,8 @@ export default function TeoriaHome() {
                 ) : null}
               </div>
 
-              <h2 className="mt-1 text-lg font-semibold">{m.title}</h2>
-              <p className="mt-1 text-sm text-muted">{m.summary}</p>
+              <h2 className="mt-1 text-lg font-semibold">{moduleTitle(m, i18n.language)}</h2>
+              <p className="mt-1 text-sm text-muted">{moduleSummary(m, i18n.language)}</p>
 
               <div className="mt-4 flex items-center gap-3">
                 {unlocked ? (
