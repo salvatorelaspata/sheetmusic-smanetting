@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import type { ClefType, KeySignature, NoteElement, TimeSignature } from '../../core/model'
+import type { DisplayClef, KeySignature, NoteElement, TimeSignature } from '../../core/model'
 import { renderFragment, type NoteHit } from '../../core/vexflowAdapter'
 
 export interface StaffProps {
-  clef: ClefType
+  clef: DisplayClef
   timeSignature?: TimeSignature
   keySignature?: KeySignature
   elements: NoteElement[]

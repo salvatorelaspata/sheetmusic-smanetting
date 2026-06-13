@@ -1,5 +1,5 @@
 import { Formatter, Renderer, Stave, Voice } from 'vexflow'
-import type { ClefType, KeySignature, NoteElement, TimeSignature } from './model'
+import type { DisplayClef, KeySignature, NoteElement, TimeSignature } from './model'
 import { vexKeySignatureName } from './theory'
 import { buildStaveNote, decorateSpans, keyAccidentalMap } from './vexNotes'
 
@@ -10,7 +10,7 @@ import { buildStaveNote, decorateSpans, keyAccidentalMap } from './vexNotes'
  */
 
 export interface StaffFragment {
-  clef: ClefType
+  clef: DisplayClef
   timeSignature?: TimeSignature
   keySignature?: KeySignature
   elements: NoteElement[]

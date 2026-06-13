@@ -8,7 +8,7 @@ import {
   StaveNote,
   StaveTie,
 } from 'vexflow'
-import type { Articulation, ClefType, NoteElement, Step } from './model'
+import type { Articulation, DisplayClef, NoteElement, Step } from './model'
 import { vexDurationCode } from './durations'
 import { vexAccidentalCode, vexKey } from './pitch'
 import { keySignatureAccidentals } from './theory'
@@ -21,7 +21,13 @@ import { keySignatureAccidentals } from './theory'
  * con decorateSpans().
  */
 
-const REST_KEY: Record<ClefType, string> = { treble: 'b/4', bass: 'd/3' }
+// Altezza (riga centrale) su cui appoggiare la pausa, per ciascuna chiave.
+const REST_KEY: Record<DisplayClef, string> = {
+  treble: 'b/4',
+  bass: 'd/3',
+  alto: 'c/4',
+  tenor: 'a/3',
+}
 
 const ARTICULATION_CODE: Record<Articulation, string> = {
   staccato: 'a.',
@@ -38,7 +44,7 @@ export function keyAccidentalMap(fifths: number): Map<Step, 'sharp' | 'flat'> {
 
 export function buildStaveNote(
   el: NoteElement,
-  clef: ClefType,
+  clef: DisplayClef,
   keyAcc: Map<Step, 'sharp' | 'flat'>,
 ): StaveNote {
   const isRest = el.kind === 'rest' || el.pitches.length === 0

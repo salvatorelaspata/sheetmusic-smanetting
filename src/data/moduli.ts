@@ -42,9 +42,9 @@ function mod(
 
 export const MODULES: ModuleMeta[] = [
   mod(1, 'pentagramma', 'Il pentagramma e le chiavi', 'The staff and clefs',
-    'Le cinque righe, gli spazi e le chiavi di violino e di basso.',
-    'The five lines, the spaces and the treble and bass clefs.',
-    [{ id: 'pentagramma', title: 'Pentagramma, chiave di violino e di basso', titleEn: 'The staff, treble and bass clefs' }]),
+    'Le cinque righe, gli spazi e come leggere le note in chiave di violino, di basso e di Do (contralto e tenore).',
+    'The five lines, the spaces and how to read notes in the treble, bass and C clefs (alto and tenor).',
+    [{ id: 'pentagramma', title: 'Pentagramma e chiavi: violino, basso, contralto e tenore', titleEn: 'The staff and clefs: treble, bass, alto and tenor' }]),
   mod(2, 'nomi-note', 'I nomi delle note', 'Note names',
     'Righe, spazi e tagli addizionali: come si chiamano le note.',
     'Lines, spaces and ledger lines: what the notes are called.',

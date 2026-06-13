@@ -59,6 +59,14 @@ export interface Measure {
 
 export type ClefType = 'treble' | 'bass'
 
+/**
+ * Chiavi supportate SOLO in visualizzazione (esempi di Teoria): oltre a violino
+ * (treble) e basso (bass), le chiavi di Do — contralto (3ª riga) e tenore (4ª
+ * riga). L'editor Componi, lo Score e l'export MusicXML restano a violino/basso
+ * (ClefType): qui serve solo a disegnare gli esempi delle lezioni.
+ */
+export type DisplayClef = ClefType | 'alto' | 'tenor'
+
 export interface TimeSignature {
   beats: number
   beatType: number
