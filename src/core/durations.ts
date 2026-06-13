@@ -57,3 +57,9 @@ export const PALETTE_DURATIONS: { base: DurationBase; it: string; en: string }[]
 export function durationNameIt(base: DurationBase): string {
   return PALETTE_DURATIONS.find((d) => d.base === base)?.it ?? base
 }
+
+/** Nome della durata nella lingua data (it = Semibreve…, en = Whole…). */
+export function durationName(base: DurationBase, lang: string): string {
+  const d = PALETTE_DURATIONS.find((x) => x.base === base)
+  return d ? (lang === 'en' ? d.en : d.it) : base
+}

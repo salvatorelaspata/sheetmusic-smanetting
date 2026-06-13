@@ -6,6 +6,8 @@ interface NoteNameButtonsProps {
   disabled?: boolean
   highlightStep?: Step
   wrongStep?: Step
+  /** Nota attualmente scelta ma non ancora confermata (stile "in attesa"). */
+  selectedStep?: Step
 }
 
 /** I sette nomi di nota (Do–Si) come pulsanti di risposta. */
@@ -14,6 +16,7 @@ export function NoteNameButtons({
   disabled,
   highlightStep,
   wrongStep,
+  selectedStep,
 }: NoteNameButtonsProps) {
   return (
     <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
@@ -23,7 +26,9 @@ export function NoteNameButtons({
             ? 'border-success bg-success/15 text-success'
             : wrongStep === step
               ? 'border-danger bg-danger/15 text-danger'
-              : 'border-border bg-surface hover:border-brand hover:bg-canvas'
+              : selectedStep === step
+                ? 'border-brand bg-brand/10 text-brand'
+                : 'border-border bg-surface hover:border-brand hover:bg-canvas'
         return (
           <button
             key={step}

@@ -7,6 +7,7 @@
     "home": "Home",
     "teoria": "Theory",
     "pratica": "Practice",
+    "gioco": "Play",
     "componi": "Compose",
     "impostazioni": "Settings",
     "toggleTheme": "Toggle theme"
@@ -139,6 +140,40 @@
       "minore": "Minor",
       "diminuita": "Diminished",
       "aumentata": "Augmented"
+    }
+  },
+  "gioco": {
+    "title": "Play",
+    "subtitle": "Challenge yourself and beat your best.",
+    "play": "Play",
+    "back": "Back to games",
+    "recordShort": "best {{n}}",
+    "points": "points",
+    "streak": "streak",
+    "livesLeft": "{{n}} lives left",
+    "correct": "Correct! 🎉",
+    "wrongWas": "It was: {{answer}}",
+    "continue": "Continue",
+    "gameOver": "Game over",
+    "newRecord": "New record! 🏆",
+    "bestStreakLine": "Best streak: {{n}}",
+    "recordLine": "Best: {{n}}",
+    "playAgain": "Play again",
+    "backToGames": "Back to games",
+    "difficulty": {
+      "facile": "Easy",
+      "facileHint": "Treble clef",
+      "medio": "Medium",
+      "medioHint": "Treble and bass",
+      "difficile": "Hard",
+      "difficileHint": "All clefs + note value"
+    },
+    "riconosciNota": {
+      "title": "Name that note",
+      "desc": "Identify random notes while you have lives. As difficulty rises the clefs change and you must guess the note value too.",
+      "askNote": "Which note is it?",
+      "askNoteFirst": "First, the note…",
+      "askDurationNow": "You picked {{note}}: now the value"
     }
   },
   "componi": {

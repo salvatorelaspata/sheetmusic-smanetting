@@ -8,6 +8,7 @@ const LINKS = [
   { to: '/', key: 'nav.home', end: true },
   { to: '/teoria', key: 'nav.teoria', end: false },
   { to: '/pratica', key: 'nav.pratica', end: false },
+  { to: '/gioco', key: 'nav.gioco', end: false },
   { to: '/componi', key: 'nav.componi', end: false },
 ] as const
 

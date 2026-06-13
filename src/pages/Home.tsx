@@ -6,6 +6,7 @@ import { buttonClasses } from '../components/ui/styles'
 import { ALL_LESSONS, lessonTitle } from '../data/moduli'
 import { useProgress } from '../state/progressStore'
 import { useStats } from '../state/statsStore'
+import { useGames } from '../state/gamesStore'
 import { useCompositions } from '../state/compositionsStore'
 
 export default function Home() {
@@ -21,6 +22,8 @@ export default function Home() {
   const correct = Object.values(exercises).reduce((sum, e) => sum + e.correct, 0)
   const accuracy = attempts === 0 ? 0 : correct / attempts
   const bestStreak = Object.values(exercises).reduce((max, e) => Math.max(max, e.bestStreak), 0)
+
+  const gameRecord = useGames((s) => s.bestScoreForGame('riconosci-nota'))
 
   const items = useCompositions((s) => s.items)
   const recent = [...items].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 4)
@@ -92,6 +95,24 @@ export default function Home() {
           )}
         </Card>
       </div>
+
+      <Card
+        title={t('gioco.title')}
+        action={
+          <Link to="/gioco" className={buttonClasses('secondary', 'sm')}>
+            {t('gioco.play')}
+          </Link>
+        }
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm text-muted">{t('gioco.subtitle')}</p>
+          {gameRecord > 0 && (
+            <span className="text-sm font-medium tabular-nums">
+              {t('gioco.recordLine', { n: gameRecord })}
+            </span>
+          )}
+        </div>
+      </Card>
 
       <Card
         title={t('home.compositionsTitle')}

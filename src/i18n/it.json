@@ -7,6 +7,7 @@
     "home": "Home",
     "teoria": "Teoria",
     "pratica": "Pratica",
+    "gioco": "Gioco",
     "componi": "Componi",
     "impostazioni": "Impostazioni",
     "toggleTheme": "Cambia tema"
@@ -139,6 +140,40 @@
       "minore": "Minore",
       "diminuita": "Diminuita",
       "aumentata": "Aumentata"
+    }
+  },
+  "gioco": {
+    "title": "Gioco",
+    "subtitle": "Mettiti alla prova e batti il tuo record.",
+    "play": "Gioca",
+    "back": "Torna ai giochi",
+    "recordShort": "record {{n}}",
+    "points": "punti",
+    "streak": "serie",
+    "livesLeft": "{{n}} vite rimaste",
+    "correct": "Giusto! 🎉",
+    "wrongWas": "Era: {{answer}}",
+    "continue": "Continua",
+    "gameOver": "Partita finita",
+    "newRecord": "Nuovo record! 🏆",
+    "bestStreakLine": "Serie migliore: {{n}}",
+    "recordLine": "Record: {{n}}",
+    "playAgain": "Gioca ancora",
+    "backToGames": "Torna ai giochi",
+    "difficulty": {
+      "facile": "Facile",
+      "facileHint": "Chiave di violino",
+      "medio": "Medio",
+      "medioHint": "Violino e basso",
+      "difficile": "Difficile",
+      "difficileHint": "Tutte le chiavi + durata"
+    },
+    "riconosciNota": {
+      "title": "Riconosci la nota",
+      "desc": "Riconosci note casuali finché hai vite. Salendo di difficoltà cambiano le chiavi e va indovinata anche la durata.",
+      "askNote": "Che nota è?",
+      "askNoteFirst": "Prima la nota…",
+      "askDurationNow": "Hai scelto {{note}}: ora la durata"
     }
   },
   "componi": {

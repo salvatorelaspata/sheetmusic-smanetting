@@ -15,6 +15,8 @@ const Armature = lazy(() => import('./pages/pratica/Armature'))
 const Dettato = lazy(() => import('./pages/pratica/Dettato'))
 const Intervalli = lazy(() => import('./pages/pratica/Intervalli'))
 const Accordi = lazy(() => import('./pages/pratica/Accordi'))
+const GiocoHome = lazy(() => import('./pages/gioco/GiocoHome'))
+const RiconosciNotaGame = lazy(() => import('./pages/gioco/RiconosciNotaGame'))
 const Componi = lazy(() => import('./pages/componi/ComponiPage'))
 const Impostazioni = lazy(() => import('./pages/Impostazioni'))
 
@@ -34,6 +36,8 @@ export const router = createBrowserRouter([
       { path: 'pratica/dettato', element: <Dettato /> },
       { path: 'pratica/intervalli', element: <Intervalli /> },
       { path: 'pratica/accordi', element: <Accordi /> },
+      { path: 'gioco', element: <GiocoHome /> },
+      { path: 'gioco/riconosci-nota', element: <RiconosciNotaGame /> },
       { path: 'componi', element: <Componi /> },
       { path: 'impostazioni', element: <Impostazioni /> },
     ],
