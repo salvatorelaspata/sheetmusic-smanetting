@@ -107,17 +107,21 @@ export function pitchFromDiatonic(dv: number, accidental?: Accidental): Pitch {
   return accidental ? { ...pitch, accidental } : pitch
 }
 
-/** Nome visualizzato della nota (italiano, con eventuale equivalente inglese). */
+/**
+ * Nome visualizzato della nota. La notazione primaria segue la lingua
+ * (`lang`: it = Do Re Mi, en = C D E; default it). Con `alternate` si mostra
+ * tra parentesi anche l'altro sistema, es. "Sol♯ (G♯)" oppure "G♯ (Sol♯)".
+ */
 export function noteName(
   p: Pitch,
-  opts?: { showEnglish?: boolean; withOctave?: boolean },
+  opts?: { lang?: string; alternate?: boolean; withOctave?: boolean },
 ): string {
-  const accU = p.accidental ? ACC_SYMBOL_UNICODE[p.accidental] : ''
-  let label = STEP_NAMES_IT[p.step] + accU
-  if (opts?.showEnglish) {
-    const accA = p.accidental && p.accidental !== 'natural' ? ACC_SYMBOL_ASCII[p.accidental] : ''
-    label += ` (${p.step}${accA})`
-  }
+  const acc = p.accidental ? ACC_SYMBOL_UNICODE[p.accidental] : ''
+  const english = opts?.lang === 'en'
+  const itName = STEP_NAMES_IT[p.step] + acc
+  const enName = p.step + acc
+  let label = english ? enName : itName
+  if (opts?.alternate) label += ` (${english ? itName : enName})`
   if (opts?.withOctave) label += ` ${p.octave}`
   return label
 }

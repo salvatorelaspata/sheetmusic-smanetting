@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { NoteElement, Pitch, Score } from '../../core/model'
 import { renderScore, type RenderedMeasure, type RenderedNote } from '../../core/editorRenderer'
 import { pitchFromY, snapY } from '../../core/staffGeometry'
@@ -65,6 +66,7 @@ export function ScoreEditor({
   onClearSelection,
   onTranspose,
 }: ScoreEditorProps) {
+  const { i18n } = useTranslation()
   const showEnglish = useSettings((s) => s.showEnglishNotation)
   const wrapRef = useRef<HTMLDivElement>(null)
   const drawRef = useRef<HTMLDivElement>(null)
@@ -237,7 +239,9 @@ export function ScoreEditor({
         <div className="pointer-events-none absolute" style={{ left: hover.x, top: hover.y }}>
           <span className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ width: 11, height: 8, background: 'rgba(79,70,229,0.55)' }} />
           <span className="absolute left-3 -top-3 whitespace-nowrap rounded bg-brand px-1.5 py-0.5 text-[10px] font-semibold text-brand-fg">
-            {hover.pitch ? noteName(hover.pitch, { showEnglish }) : 'Pausa'}
+            {hover.pitch
+              ? noteName(hover.pitch, { lang: i18n.language, alternate: showEnglish })
+              : 'Pausa'}
           </span>
         </div>
       )}
@@ -248,7 +252,7 @@ export function ScoreEditor({
         <div className="pointer-events-none absolute" style={{ left: dragPreview.x, top: dragPreview.y }}>
           <span className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ width: 11, height: 8, background: 'rgba(37,99,235,0.6)' }} />
           <span className="absolute left-3 -top-3 whitespace-nowrap rounded bg-accent px-1.5 py-0.5 text-[10px] font-semibold text-white">
-            {noteName(dragPreview.pitch, { showEnglish })}
+            {noteName(dragPreview.pitch, { lang: i18n.language, alternate: showEnglish })}
           </span>
         </div>
       )}

@@ -60,6 +60,8 @@
     "retry": "Riprova",
     "nextLesson": "Prossima lezione",
     "backToTheory": "Torna alle lezioni",
+    "playNote": "Ascolta {{note}}",
+    "noteFallback": "Nota",
     "lessonNotFound": "Lezione non trovata."
   },
   "pratica": {
@@ -209,8 +211,8 @@
     "theme": "Tema",
     "light": "Chiaro",
     "dark": "Scuro",
-    "englishNotation": "Mostra anche la notazione anglosassone (C, D, E…)",
-    "englishNotationHint": "I nomi delle note resteranno in italiano (Do, Re, Mi…) con l'equivalente inglese accanto.",
+    "englishNotation": "Mostra entrambe le notazioni (italiana e anglosassone)",
+    "englishNotationHint": "Accanto al nome principale (che segue la lingua dell'app) compare anche l'altro sistema, es. Sol♯ / G♯.",
     "volume": "Volume"
   }
 }

@@ -40,6 +40,21 @@ function Block({ block }: { block: ContentBlock }) {
           ))}
         </ul>
       )
+    case 'tip': {
+      const curiosity = block.intent === 'curiosity'
+      return (
+        <div
+          className={`rounded-lg border-l-4 px-4 py-3 text-sm ${
+            curiosity ? 'border-accent bg-accent/10' : 'border-amber-500 bg-amber-500/10'
+          }`}
+        >
+          <span className="font-semibold">
+            {curiosity ? (lang === 'en' ? '✨ Did you know? ' : '✨ Lo sapevi? ') : lang === 'en' ? '💡 Tip. ' : '💡 Consiglio. '}
+          </span>
+          {loc(block.text, lang)}
+        </div>
+      )
+    }
     case 'staff':
       return <StaffExampleView example={block.example} />
     default:

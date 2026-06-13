@@ -77,9 +77,9 @@ export default function RiconosciNota() {
     const error = answer.isCorrect
       ? undefined
       : {
-          context: noteName(pitch, { showEnglish, withOctave: true }),
+          context: noteName(pitch, { alternate: showEnglish, withOctave: true }),
           given: PITCH_CLASS_NAMES_IT[answer.givenPc],
-          expected: noteName(pitch, { showEnglish }),
+          expected: noteName(pitch, { alternate: showEnglish }),
         }
     setAnswer(null)
     session.commit(answer.isCorrect, error)
@@ -163,7 +163,7 @@ export default function RiconosciNota() {
           <span className={answer.isCorrect ? 'text-success' : 'text-danger'}>
             {answer.isCorrect
               ? t('exercises.correct')
-              : t('exercises.wrongIs', { note: noteName(pitch, { showEnglish }) })}
+              : t('exercises.wrongIs', { note: noteName(pitch, { alternate: showEnglish }) })}
           </span>
         )}
       </div>

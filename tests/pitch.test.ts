@@ -22,11 +22,15 @@ describe('pitch', () => {
     expect(frequencyOf({ step: 'A', octave: 5 })).toBeCloseTo(880)
   })
 
-  it('nome italiano ed equivalente inglese', () => {
+  it('nome nota segue la lingua, con notazione alternativa opzionale', () => {
     expect(noteName({ step: 'G', octave: 4 })).toBe('Sol')
-    expect(noteName({ step: 'F', octave: 4, accidental: 'sharp' }, { showEnglish: true })).toBe(
-      'Fa♯ (F#)',
+    expect(noteName({ step: 'G', octave: 4 }, { lang: 'en' })).toBe('G')
+    expect(noteName({ step: 'F', octave: 4, accidental: 'sharp' }, { alternate: true })).toBe(
+      'Fa♯ (F♯)',
     )
+    expect(
+      noteName({ step: 'F', octave: 4, accidental: 'sharp' }, { lang: 'en', alternate: true }),
+    ).toBe('F♯ (Fa♯)')
   })
 
   it('chiave e alterazioni VexFlow', () => {

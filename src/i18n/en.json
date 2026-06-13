@@ -60,6 +60,8 @@
     "retry": "Retry",
     "nextLesson": "Next lesson",
     "backToTheory": "Back to lessons",
+    "playNote": "Play {{note}}",
+    "noteFallback": "Note",
     "lessonNotFound": "Lesson not found."
   },
   "pratica": {
@@ -209,8 +211,8 @@
     "theme": "Theme",
     "light": "Light",
     "dark": "Dark",
-    "englishNotation": "Also show English note names (C, D, E…)",
-    "englishNotationHint": "Note names stay in Italian (Do, Re, Mi…) with the English equivalent next to them.",
+    "englishNotation": "Show both notations (Italian and English)",
+    "englishNotationHint": "Next to the main name (which follows the app language) the other system also appears, e.g. G♯ / Sol♯.",
     "volume": "Volume"
   }
 }

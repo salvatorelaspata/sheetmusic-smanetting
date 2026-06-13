@@ -10,7 +10,7 @@ import { loc, type StaffExample } from '../../data/lezioni'
  * sulle note all'audio quando l'esempio è "playable". Riutilizzato da lezioni e quiz.
  */
 export function StaffExampleView({ example, height }: { example: StaffExample; height?: number }) {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const showEnglish = useSettings((s) => s.showEnglishNotation)
   return (
     <figure className="space-y-2">
@@ -30,7 +30,11 @@ export function StaffExampleView({ example, height }: { example: StaffExample; h
         }
         noteLabel={(i) => {
           const pitch = example.elements[i]?.pitches[0]
-          return pitch ? `Ascolta ${noteName(pitch, { showEnglish })}` : 'Nota'
+          return pitch
+            ? t('teoria.playNote', {
+                note: noteName(pitch, { lang: i18n.language, alternate: showEnglish }),
+              })
+            : t('teoria.noteFallback')
         }}
       />
       {example.caption && (

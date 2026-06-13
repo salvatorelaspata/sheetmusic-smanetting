@@ -28,6 +28,7 @@ export default function App() {
 
   useEffect(() => {
     if (i18n.language !== language) void i18n.changeLanguage(language)
+    document.documentElement.lang = language
   }, [language, i18n])
 
   useEffect(() => {
